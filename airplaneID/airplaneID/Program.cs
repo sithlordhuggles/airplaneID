@@ -21,10 +21,12 @@ namespace airplaneID
             client.ClientCredentials.UserName.UserName = "jakevanvl";
             client.ClientCredentials.UserName.Password = "e3b0ab0a12eebe31f5ad997f896240cc57c5864d";
 
+            Console.Clear();
             Console.WriteLine("Select from one of the following options:");
             Console.WriteLine("1: Gather Flights Enroute to Specified Airport");
             Console.WriteLine("2: Get METAR (Weather Info) for Specified Airport");
-            Console.WriteLine("Select 1 or 2");
+            Console.WriteLine("3: Get Enhanced METAR for Specified Airport");
+            Console.WriteLine("Select 1, 2, or 3:");
 
             int response = new int();
 
@@ -46,6 +48,9 @@ namespace airplaneID
                     break;
                 case 2:
                     GetMETARForSpecifiedAirport(client);
+                    break;
+                case 3:
+                    GetMetarExforSpecifiedAirport(client);
                     break;
                 default:
                     Console.WriteLine("Invalid Response!");
@@ -78,6 +83,8 @@ namespace airplaneID
                 Console.WriteLine("Press Enter to Continue...");
                 Console.ReadLine();
             }
+            Console.WriteLine("Press Enter to return to the main menu...");
+            Console.ReadLine();
             MainMenu();
         }
 
@@ -89,8 +96,43 @@ namespace airplaneID
             string currentMETAR = client.Metar(airportID);
 
             Console.Write(currentMETAR);
+            Console.WriteLine("Press Enter to return to the main menu...");
             Console.ReadLine();
 
+            MainMenu();
+        }
+
+        public static void GetMetarExforSpecifiedAirport(FlightXML2SoapClient client)
+        {
+            Console.WriteLine("What Airport ID would you like to search? Example: KIAD, KSFO, KJFK");
+            string airportID = Console.ReadLine();
+            int resultsReturned = 1; //Max number of results returned
+            int startTime = 0; //Limit results to airline traffic only
+            int offest = 0; //Soonest results first
+
+            ArrayOfMetarStruct currentMETAREx = client.MetarEx(airportID, startTime, resultsReturned, offest);
+
+            foreach(MetarStruct e in currentMETAREx.metar)
+            {
+                DateTime timestamp = UnixTimeStampToDateTime(Double.Parse(e.time.ToString()));
+                Console.WriteLine("Identifier: " + e.airport);
+                Console.WriteLine("Report Time: " + timestamp.ToString());
+                Console.WriteLine("Temperature: " + e.temp_air.ToString() + "C");
+                Console.WriteLine("Humidity: " + e.temp_relhum.ToString() + "%");
+                Console.WriteLine("Dew Point: " + e.temp_dewpoint.ToString() + "C");
+
+                if (e.wind_speed_gust == 0)
+                {
+                    Console.WriteLine("Wind: " + e.wind_direction.ToString() + " deg @ " + e.wind_speed.ToString() + "kts");
+                }
+                else if (e.wind_speed_gust > 0)
+                {
+                    Console.WriteLine("Wind: " + e.wind_direction.ToString() + " deg @ " + e.wind_speed.ToString() + "kts, gusting to " + e.wind_speed_gust.ToString() + "kts");
+                }
+                Console.WriteLine("Visibility: " + e.visibility.ToString() + " miles");
+                Console.WriteLine("Press Enter to return to the main menu...");
+                Console.ReadLine();
+            }
             MainMenu();
         }
 
