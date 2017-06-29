@@ -1,0 +1,6 @@
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\airplaneID.exe.config
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\airplaneID.exe
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\airplaneID.pdb
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\obj\Debug\airplaneID.csprojResolveAssemblyReference.cache
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\obj\Debug\airplaneID.exe
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\obj\Debug\airplaneID.pdb
