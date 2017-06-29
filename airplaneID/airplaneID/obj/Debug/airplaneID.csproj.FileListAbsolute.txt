@@ -4,3 +4,8 @@ C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\airpl
 C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\obj\Debug\airplaneID.csprojResolveAssemblyReference.cache
 C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\obj\Debug\airplaneID.exe
 C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\obj\Debug\airplaneID.pdb
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\GoogleMaps.LocationServices.dll
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\Newtonsoft.Json.xml
+C:\Users\jacob\Documents\GitHub\airplaneID\airplaneID\airplaneID\bin\Debug\System.Net.Http.Formatting.xml

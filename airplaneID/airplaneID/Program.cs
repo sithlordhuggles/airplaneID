@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using airplaneID.FlightXML2_Soap;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using GoogleMaps.LocationServices;
 
 namespace airplaneID
 {
@@ -26,7 +29,8 @@ namespace airplaneID
             Console.WriteLine("1: Gather Flights Enroute to Specified Airport");
             Console.WriteLine("2: Get METAR (Weather Info) for Specified Airport");
             Console.WriteLine("3: Get Enhanced METAR for Specified Airport");
-            Console.WriteLine("Select 1, 2, or 3:");
+            Console.WriteLine("4: Get Weather via DarkSky (CHEAPER!!!!)");
+            Console.WriteLine("Select 1, 2, 3, or 4:");
 
             int response = new int();
 
@@ -51,6 +55,9 @@ namespace airplaneID
                     break;
                 case 3:
                     GetMetarExforSpecifiedAirport(client);
+                    break;
+                case 4:
+                    GetWeatherFromDarkSky();
                     break;
                 default:
                     Console.WriteLine("Invalid Response!");
@@ -134,6 +141,41 @@ namespace airplaneID
                 Console.ReadLine();
             }
             MainMenu();
+        }
+
+        public static void GetWeatherFromDarkSky()
+        {
+            Console.WriteLine("What city would you like weather for? Enter in City, ST format.");
+            string cityState = Console.ReadLine();
+
+            HttpClient darkSkyClient = new HttpClient();
+            darkSkyClient.BaseAddress = new Uri("https://api.darksky.net/forecast/851872ccc7d7bf3aa1013589b0d34a71/");
+
+            GoogleLocationService locationService = new GoogleLocationService();
+            MapPoint coordinates = locationService.GetLatLongFromAddress(cityState);
+
+            double latitude = coordinates.Latitude;
+            double longitude = coordinates.Longitude;
+
+            string urlParameters = latitude.ToString() + "," + longitude.ToString();
+
+            HttpResponseMessage response = darkSkyClient.GetAsync(urlParameters).Result;
+            if(response.IsSuccessStatusCode)
+            {
+                Console.WriteLine(response.Content.ReadAsAsync <IEnumerable<DataObject>>().Result);
+            }
+            else
+            {
+                Console.WriteLine("An error occured!");
+            }
+            Console.WriteLine("Press Enter to return to the main menu...");
+            Console.ReadLine();
+            MainMenu();
+        }
+
+        public class DataObject
+        {
+            public string Name { get; set; }
         }
 
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
